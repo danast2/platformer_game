@@ -1,67 +1,63 @@
 #include <SFML/Graphics.hpp>
-#include <string>
-class Settings {
-public:
-    int display_width = 1200;
-    int display_heigth = 800;
 
-    std::string name = "platformer";
-
-};
-
-class Player {
-public:
-    float x = 10.f;
-    float y = 50.f;
-    
-};
 
 int main()
 {
-    Player player;
+    sf::RenderWindow window(sf::VideoMode(1200, 800), "SFML works!");
+    window.setFramerateLimit(120);
 
-    sf::Texture snake_head;
-    snake_head.loadFromFile("images/snake_head.png");
+    float dt;
+    sf::Clock dt_clock;
 
-    sf::Sprite new_sprite;
-    new_sprite.setTexture(snake_head);
+    const float grid_size = 100.f;
 
-    new_sprite.setPosition(sf::Vector2f(player.x, player.y)); // absolute position
+    //Player
+    const float movement_speed = 100.f;
+    sf::Vector2f velocity;
+    window.setFramerateLimit(120);
+
+    sf::Texture new_player_texture;
+    new_player_texture.loadFromFile("images/snake_head.png");
     
 
-    Settings settings;
-    sf::RenderWindow window(sf::VideoMode(settings.display_width, settings.display_heigth), settings.name);
-    sf::RectangleShape rectangle(sf::Vector2f(100, 100));
-    rectangle.setFillColor(sf::Color::Green);
-
-    //rectangle.setPosition(player.x_player, player.y_player);
-
+    sf::Sprite new_player_sprite;
+    new_player_sprite.setTexture(new_player_texture);
+    
 
     while (window.isOpen())
     {
+        dt = dt_clock.restart().asSeconds();
+
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed) {
+            if (event.type == sf::Event::Closed)
                 window.close();
+            velocity.x = 0.f;
+            velocity.y = 0.f;
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+                velocity.y += -movement_speed * dt;
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-                new_sprite.move(sf::Vector2f(-10, 0)); // offset relative to the current position
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+                velocity.y += movement_speed * dt;
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-                new_sprite.move(sf::Vector2f(10, 0)); // offset relative to the current position
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+                velocity.x += -movement_speed * dt;
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-                new_sprite.move(sf::Vector2f(0, -10)); // offset relative to the current position
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-                new_sprite.move(sf::Vector2f(0, 10)); // offset relative to the current position
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+                velocity.x += movement_speed * dt;
             }
         }
 
 
+
+        new_player_sprite.move(velocity);
+
         window.clear();
-        window.draw(new_sprite);
+
+        window.draw(new_player_sprite);
+
         window.display();
     }
 
