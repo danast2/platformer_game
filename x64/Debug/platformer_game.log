@@ -1,2 +1,6 @@
-﻿  Game.cpp
+﻿  main.cpp
+  Game.cpp
+D:\cpp\platformer_game\Game.cpp(31,38): warning C4353: nonstandard extension used: constant 0 as function expression.  Use '__noop' function intrinsic instead
+  Player.cpp
+  Generating Code...
   platformer_game.vcxproj -> D:\cpp\platformer_game\x64\Debug\platformer_game.exe
