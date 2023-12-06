@@ -6,6 +6,7 @@ private:
 	sf::Texture texture_sheet_player;
 
 	//Animation
+	sf::IntRect current_frame;
 
 	//Movement
 
@@ -19,7 +20,7 @@ public:
 	virtual ~Player();
 
 	//functions
-
+	void update_movement();
 	void update();
 	void render(sf::RenderTarget& target);
 };
