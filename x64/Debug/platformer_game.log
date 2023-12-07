@@ -1,2 +1,7 @@
 ﻿  Player.cpp
+D:\cpp\platformer_game\Player.cpp(70,32): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
   platformer_game.vcxproj -> D:\cpp\platformer_game\x64\Debug\platformer_game.exe
