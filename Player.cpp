@@ -3,7 +3,7 @@
 
 void Player::init_variables()
 {
-	this->moving = false;
+	this->animation_state = PLAYER_ANIMATIONS_STATES::IDLE;
 }
 
 void Player::init_texture()
@@ -43,40 +43,53 @@ Player::~Player()
 
 void Player::update_movement()
 {
-	this->moving = false;
+	this->animation_state = PLAYER_ANIMATIONS_STATES::IDLE;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
 		//left
 		this->sprite_player.move(-1.f, 0.f);
-		this->moving = true;
+		this->animation_state = PLAYER_ANIMATIONS_STATES::MOVING_LEFT;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
 		this->sprite_player.move(1.f, 0.f);
-		this->moving = true;
+		this->animation_state = PLAYER_ANIMATIONS_STATES::MOVING_RIGHT;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-		this->sprite_player.move(0.f, -1.f);
-		this->moving = true;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-		this->sprite_player.move(0.f, 1.f);
-		this->moving = true;
-	}
+	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+	//	this->sprite_player.move(0.f, -1.f);
+	//	this->animation_state = PLAYER_ANIMATIONS_STATES::MOVING_JUMPING;
+	//}
+	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+	//	this->sprite_player.move(0.f, 1.f);
+	//	this->animation_state = PLAYER_ANIMATIONS_STATES::FALLING;
+	//}
 }
 
 void Player::update_animations()
 {
-	if (this->animation_timer.getElapsedTime().asSeconds() >= 0.2f) {
-		if (this->moving == false) { //idle animation
+	if (this->animation_state == PLAYER_ANIMATIONS_STATES::IDLE) {
+		if (this->animation_timer.getElapsedTime().asSeconds() >= 0.2f) {
+			this->current_frame.top = 0.f;
 			this->current_frame.left += 40.f;
 			if (this->current_frame.left >= 160.f) {
 				this->current_frame.left = 0;
 			}
+			this->animation_timer.restart();
+			this->sprite_player.setTextureRect(this->current_frame);
 		}
-		this->animation_timer.restart();
-		this->sprite_player.setTextureRect(this->current_frame);
 	}
-		
-	
+	else if (this->animation_state == PLAYER_ANIMATIONS_STATES::MOVING_RIGHT) {
+		if (this->animation_timer.getElapsedTime().asSeconds() >= 0.07f) {
+			this->current_frame.top = 50.f;
+			this->current_frame.left += 40.f;
+			if (this->current_frame.left >= 360.f) {
+				this->current_frame.left = 0;
+			}
+			this->animation_timer.restart();
+			this->sprite_player.setTextureRect(this->current_frame);
+		}
+	}
+	else {
+		this->animation_timer.restart();
+	}
 	
 }
 
@@ -89,4 +102,8 @@ void Player::update()
 void Player::render(sf::RenderTarget& target)
 {
 	target.draw(this->sprite_player);
+}
+
+void Player::update_phisics()
+{
 }
