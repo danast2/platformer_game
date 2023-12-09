@@ -3,7 +3,7 @@
 
 void Game::init_window() {
 	this->window.create(sf::VideoMode(800, 600), "platformer_game", sf::Style::Close | sf::Style::Titlebar);
-	this->window.setFramerateLimit(120);
+	this->window.setFramerateLimit(60);
 }
 
 

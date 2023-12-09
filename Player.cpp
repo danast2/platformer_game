@@ -33,10 +33,20 @@ Player::Player()
 	this->init_texture();
 	this->init_sprite();
 	this->init_animations();
+	this->init_phisics();
 }
 
 Player::~Player()
 {
+}
+
+void Player::init_phisics()
+{
+	this->velocity_min = 1.f;
+	this->velocity_max = 10.f;
+	this->acceleration = 3.f;
+	this->drag = 0.93f;
+	
 }
 
 
@@ -46,11 +56,11 @@ void Player::update_movement()
 	this->animation_state = PLAYER_ANIMATIONS_STATES::IDLE;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
 		//left
-		this->sprite_player.move(-1.f, 0.f);
+		this->move(-1.f, 0.f);
 		this->animation_state = PLAYER_ANIMATIONS_STATES::MOVING_LEFT;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-		this->sprite_player.move(1.f, 0.f);
+		this->move(1.f, 0.f);
 		this->animation_state = PLAYER_ANIMATIONS_STATES::MOVING_RIGHT;
 	}
 	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
@@ -97,6 +107,7 @@ void Player::update()
 {
 	this->update_movement();
 	this->update_animations();
+	this->update_phisics();
 }
 
 void Player::render(sf::RenderTarget& target)
@@ -106,4 +117,31 @@ void Player::render(sf::RenderTarget& target)
 
 void Player::update_phisics()
 {
+	//deceleration
+	this->velocity *= this->drag;
+
+	//limit deceleration
+	if (std::abs(this->velocity.x) < this->velocity_min)
+	{
+		this->velocity.x = 0.f;
+	}
+	if (std::abs(this->velocity.y) < this->velocity_min)
+	{
+		this->velocity.y = 0.f;
+	}
+
+	this->sprite_player.move(this->velocity);
+}
+
+void Player::move(const float dir_x, const float dir_y)
+{
+	//acceleration
+	this->velocity.x += dir_x * this->acceleration;
+	//this->velocity.y += dir_y * this->acceleration; !!!gravity!!!
+
+	//limit velocity
+	if (std::abs(this->velocity.x) > this->velocity_max)
+	{
+		this->velocity.x = this->velocity_max * ((this->velocity.x < 0.f) ? -1.f : 1.f);
+	}
 }

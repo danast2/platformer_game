@@ -1,20 +1,20 @@
 ﻿  Player.cpp
-D:\cpp\platformer_game\Player.cpp(70,30): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+D:\cpp\platformer_game\Player.cpp(80,30): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
           with
           [
               T=int
           ]
-D:\cpp\platformer_game\Player.cpp(71,32): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
+D:\cpp\platformer_game\Player.cpp(81,32): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
           with
           [
               T=int
           ]
-D:\cpp\platformer_game\Player.cpp(81,30): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+D:\cpp\platformer_game\Player.cpp(91,30): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
           with
           [
               T=int
           ]
-D:\cpp\platformer_game\Player.cpp(82,32): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
+D:\cpp\platformer_game\Player.cpp(92,32): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
           with
           [
               T=int
