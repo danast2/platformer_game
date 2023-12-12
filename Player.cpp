@@ -25,6 +25,7 @@ void Player::init_sprite()
 void Player::init_animations()
 {
 	this->animation_timer.restart();
+	this->animation_switch = true;
 }
 
 Player::Player()
@@ -46,7 +47,8 @@ void Player::init_phisics()
 	this->velocity_max = 10.f;
 	this->acceleration = 3.f;
 	this->drag = 0.93f;
-	
+	this->gravity = 4.f;
+	this->velocity_max_y = 15.f;
 }
 
 
@@ -76,7 +78,7 @@ void Player::update_movement()
 void Player::update_animations()
 {
 	if (this->animation_state == PLAYER_ANIMATIONS_STATES::IDLE) {
-		if (this->animation_timer.getElapsedTime().asSeconds() >= 0.2f) {
+		if (this->animation_timer.getElapsedTime().asSeconds() >= 0.2f || this->get_anim_switch()) {
 			this->current_frame.top = 0.f;
 			this->current_frame.left += 40.f;
 			if (this->current_frame.left >= 160.f) {
@@ -87,7 +89,7 @@ void Player::update_animations()
 		}
 	}
 	else if (this->animation_state == PLAYER_ANIMATIONS_STATES::MOVING_RIGHT) {
-		if (this->animation_timer.getElapsedTime().asSeconds() >= 0.07f) {
+		if (this->animation_timer.getElapsedTime().asSeconds() >= 0.1f || this->get_anim_switch()) {
 			this->current_frame.top = 50.f;
 			this->current_frame.left += 40.f;
 			if (this->current_frame.left >= 360.f) {
@@ -117,6 +119,14 @@ void Player::render(sf::RenderTarget& target)
 
 void Player::update_phisics()
 {
+	//gravity
+
+	this->velocity.y += 1.0 * this->gravity;
+	if (std::abs(this->velocity.x) > this->velocity_max_y)
+	{
+		this->velocity.y = this->velocity_max_y * ((this->velocity.y < 0.f) ? -1.f : 1.f);
+	}
+
 	//deceleration
 	this->velocity *= this->drag;
 
@@ -144,4 +154,19 @@ void Player::move(const float dir_x, const float dir_y)
 	{
 		this->velocity.x = this->velocity_max * ((this->velocity.x < 0.f) ? -1.f : 1.f);
 	}
+}
+
+void Player::reset_animation_timer() {
+	this->animation_timer.restart();
+	this->animation_switch = true;
+}
+
+const bool& Player::get_anim_switch() {
+	bool anim_switch = this->animation_switch;
+
+	if (this -> animation_switch) {
+		this->animation_switch = false;
+
+	}
+	return anim_switch;
 }

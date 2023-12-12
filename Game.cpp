@@ -28,7 +28,7 @@ void Game::update_player()
 
 void Game::update()
 {
-	//std::cout << "platformer game";
+	//polling window events
 	while (this->window.pollEvent(this->event)) {
 		if (this->event.type == sf::Event::Closed()) {
 			this->window.close();
@@ -36,6 +36,18 @@ void Game::update()
 		else if (this->event.type == sf::Event::KeyPressed && this->event.key.code == sf::Keyboard::Escape) {
 			this->window.close();
 		}
+		if (this->event.type == sf::Event::KeyReleased &&
+				(
+				this->event.key.code == sf::Keyboard::A ||
+				this->event.key.code == sf::Keyboard::D ||
+				this->event.key.code == sf::Keyboard::W ||
+				this->event.key.code == sf::Keyboard::S
+				)
+			)
+		{
+			this->player->reset_animation_timer();
+		}
+			
 	}
 	this->update_player();
 }
