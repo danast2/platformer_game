@@ -1,32 +1,4 @@
-﻿  main.cpp
-  Game.cpp
-D:\cpp\platformer_game\Game.cpp(33,38): warning C4353: nonstandard extension used: constant 0 as function expression.  Use '__noop' function intrinsic instead
-  Player.cpp
-D:\cpp\platformer_game\Player.cpp(82,30): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-D:\cpp\platformer_game\Player.cpp(83,32): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-D:\cpp\platformer_game\Player.cpp(93,30): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-D:\cpp\platformer_game\Player.cpp(94,32): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-D:\cpp\platformer_game\Player.cpp(124,26): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
+﻿  Tile.cpp
+  TileMap.cpp
   Generating Code...
-D:\cpp\platformer_game\Player.cpp(171): warning C4172: returning address of local variable or temporary: anim_switch
   platformer_game.vcxproj -> D:\cpp\platformer_game\x64\Debug\platformer_game.exe

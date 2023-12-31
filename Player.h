@@ -36,6 +36,11 @@ public:
 
 	//accesors
 	const bool& get_anim_switch();
+	const sf::FloatRect getGlobalBounds() const;
+
+	//modifiers
+	void set_position(const float x, const float y);
+	void reset_velocity_y();
 
 	//functions
 	void reset_animation_timer();

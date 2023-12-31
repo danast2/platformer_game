@@ -17,6 +17,7 @@ public:
 
 	//Functions
 	void update_player();
+	void update_collision();
 	void update();
 	void render_player();
 	void render();

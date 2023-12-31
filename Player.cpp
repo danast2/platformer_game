@@ -112,6 +112,16 @@ void Player::update()
 	this->update_phisics();
 }
 
+void Player::reset_velocity_y()
+{
+	this->velocity.y = 0.f;
+}
+
+void Player::set_position(const float x, const float y)
+{
+	this->sprite_player.setPosition(x, y);
+}
+
 void Player::render(sf::RenderTarget& target)
 {
 	target.draw(this->sprite_player);
@@ -142,6 +152,12 @@ void Player::update_phisics()
 
 	this->sprite_player.move(this->velocity);
 }
+
+const sf::FloatRect Player::getGlobalBounds() const
+{
+	return this->sprite_player.getGlobalBounds();
+}
+
 
 void Player::move(const float dir_x, const float dir_y)
 {
