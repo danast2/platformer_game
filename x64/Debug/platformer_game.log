@@ -1,2 +1,38 @@
-﻿  TileMap.cpp
+﻿  Player.cpp
+D:\cpp\platformer_game\Player.cpp(85,30): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+D:\cpp\platformer_game\Player.cpp(86,32): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+D:\cpp\platformer_game\Player.cpp(96,30): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+D:\cpp\platformer_game\Player.cpp(97,32): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+D:\cpp\platformer_game\Player.cpp(109,30): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+D:\cpp\platformer_game\Player.cpp(110,32): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+D:\cpp\platformer_game\Player.cpp(159,26): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\cpp\platformer_game\Player.cpp(223): warning C4172: returning address of local variable or temporary: anim_switch
   platformer_game.vcxproj -> D:\cpp\platformer_game\x64\Debug\platformer_game.exe
