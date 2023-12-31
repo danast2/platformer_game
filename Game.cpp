@@ -29,10 +29,10 @@ void Game::update_player()
 void Game::update_collision()
 {
 	//collision bottom of the screen
-	if (this->player->getGlobalBounds().top + this->player->getGlobalBounds().height > this->window.getSize().y)
+	if (this->player->get_position().y + this->player->getGlobalBounds().height > this->window.getSize().y)
 	{
 		this->player->reset_velocity_y();
-		this->player->set_position(this->player->getGlobalBounds().left, this->window.getSize().y - this->player->getGlobalBounds().height);
+		this->player->set_position(this->player->get_position().x, this->window.getSize().y - this->player->getGlobalBounds().height);
 	}
 }
 

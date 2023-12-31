@@ -36,6 +36,7 @@ public:
 
 	//accesors
 	const bool& get_anim_switch();
+	const sf::Vector2f get_position() const;
 	const sf::FloatRect getGlobalBounds() const;
 
 	//modifiers

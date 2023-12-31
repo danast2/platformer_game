@@ -19,7 +19,7 @@ void Player::init_sprite()
 	this->current_frame = sf::IntRect(0, 0, 40, 50);
 
 	this->sprite_player.setTextureRect(current_frame);
-	this->sprite_player.setScale(1.5f, 1.5f);
+	this->sprite_player.setScale(3.f, 3.f);
 }
 
 void Player::init_animations()
@@ -44,9 +44,9 @@ Player::~Player()
 void Player::init_phisics()
 {
 	this->velocity_min = 1.f;
-	this->velocity_max = 10.f;
-	this->acceleration = 3.f;
-	this->drag = 0.93f;
+	this->velocity_max = 20.f;
+	this->acceleration = 3.5f;
+	this->drag = 0.87f;
 	this->gravity = 4.f;
 	this->velocity_max_y = 15.f;
 }
@@ -98,6 +98,21 @@ void Player::update_animations()
 			this->animation_timer.restart();
 			this->sprite_player.setTextureRect(this->current_frame);
 		}
+		this->sprite_player.setScale(3.f, 3.f);
+		this->sprite_player.setOrigin(0.f, 0.f);
+	}
+	else if (this->animation_state == PLAYER_ANIMATIONS_STATES::MOVING_LEFT) {
+		if (this->animation_timer.getElapsedTime().asSeconds() >= 0.1f || this->get_anim_switch()) {
+			this->current_frame.top = 50.f;
+			this->current_frame.left += 40.f;
+			if (this->current_frame.left >= 360.f) {
+				this->current_frame.left = 0;
+			}
+			this->animation_timer.restart();
+			this->sprite_player.setTextureRect(this->current_frame);
+		}
+		this->sprite_player.setScale(-3.f, 3.f);
+		this->sprite_player.setOrigin(this->sprite_player.getGlobalBounds().width / 3.f, 0.f); //This is done so that the sprite reversal is normal.
 	}
 	else {
 		this->animation_timer.restart();
@@ -125,6 +140,13 @@ void Player::set_position(const float x, const float y)
 void Player::render(sf::RenderTarget& target)
 {
 	target.draw(this->sprite_player);
+
+	sf::CircleShape circle;
+	circle.setFillColor(sf::Color::Red);
+	circle.setRadius(2.f);
+	circle.setPosition(this->sprite_player.getPosition());
+
+	target.draw(circle);
 }
 
 void Player::update_phisics()
@@ -157,6 +179,12 @@ const sf::FloatRect Player::getGlobalBounds() const
 {
 	return this->sprite_player.getGlobalBounds();
 }
+
+const sf::Vector2f Player::get_position() const
+{
+	return this->sprite_player.getPosition();
+}
+
 
 
 void Player::move(const float dir_x, const float dir_y)
